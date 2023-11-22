@@ -113,7 +113,7 @@ class IntroView extends GetView<IntroController> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    print("Create account");
+                    Get.toNamed('/signup');
                   },
                   child: Container(
                       width: 305,

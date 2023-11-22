@@ -189,17 +189,22 @@ class LoginView extends GetView<LoginController> {
                     padding: const EdgeInsets.only(right: 50),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: const [
-                        Text(
-                          'Forgot your password?',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                            color: Color(0xFF0037A6),
-                            fontSize: 16,
-                            fontFamily: 'SF Pro Display',
-                            fontWeight: FontWeight.w500,
-                            height: 0,
-                            letterSpacing: -0.15,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed('/forgotpassword');
+                          },
+                          child: Text(
+                            'Forgot your password?',
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              color: Color(0xFF0037A6),
+                              fontSize: 16,
+                              fontFamily: 'SF Pro Display',
+                              fontWeight: FontWeight.w500,
+                              height: 0,
+                              letterSpacing: -0.15,
+                            ),
                           ),
                         ),
                       ],
