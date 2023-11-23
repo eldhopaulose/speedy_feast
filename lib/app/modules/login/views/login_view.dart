@@ -217,7 +217,9 @@ class LoginView extends GetView<LoginController> {
                     width: 305,
                     height: 42,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed('/home');
+                      },
                       child: Text(
                         'Login',
                         textAlign: TextAlign.center,
