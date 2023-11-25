@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:speedy_feast/app/networks/dio/repo/auth_repo.dart';
+import 'package:speedy_feast/app/networks/models/user_signup_res.dart';
+import 'package:speedy_feast/app/routes/app_pages.dart';
 
 class SignupController extends GetxController {
   //TODO: Implement SignupController
 
   final count = 0.obs;
   final isChecked = false.obs;
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   void onInit() {
@@ -26,5 +33,25 @@ class SignupController extends GetxController {
 
   void isChecking(bool? value) {
     isChecked.value = value ?? false;
+  }
+
+  onSignupCliked() async {
+    final AuthRepo repo = AuthRepo();
+    final response = await repo.AuthReRes(
+      UserSignupRes(
+        name: nameController.text,
+        email: emailController.text,
+        password: passwordController.text,
+      ),
+    );
+    if (response != null && response.error == null) {
+      Get.toNamed(Routes.LOGIN);
+    } else {
+      Get.showSnackbar(GetSnackBar(
+        title: "error",
+        message: response?.error.toString(),
+        duration: Duration(seconds: 3),
+      ));
+    }
   }
 }

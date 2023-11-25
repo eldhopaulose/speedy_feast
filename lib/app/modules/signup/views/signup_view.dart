@@ -122,8 +122,9 @@ class SignupView extends GetView<SignupController> {
                       borderRadius: BorderRadius.circular(32),
                     ),
                   ),
-                  child: const TextField(
-                    decoration: InputDecoration(
+                  child: TextField(
+                    controller: controller.nameController,
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Enter your name',
                       hintStyle: TextStyle(
@@ -164,8 +165,9 @@ class SignupView extends GetView<SignupController> {
                       borderRadius: BorderRadius.circular(32),
                     ),
                   ),
-                  child: const TextField(
-                    decoration: InputDecoration(
+                  child: TextField(
+                    controller: controller.emailController,
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Enter your email',
                       hintStyle: TextStyle(
@@ -206,8 +208,9 @@ class SignupView extends GetView<SignupController> {
                       borderRadius: BorderRadius.circular(32),
                     ),
                   ),
-                  child: const TextField(
-                    decoration: InputDecoration(
+                  child: TextField(
+                    controller: controller.passwordController,
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Enter your password',
                       hintStyle: TextStyle(
@@ -311,7 +314,8 @@ class SignupView extends GetView<SignupController> {
                     () => ElevatedButton(
                       onPressed: () {
                         if (controller.isChecked.value == true) {
-                          () {};
+                          controller.onSignupCliked();
+                          print("sdfdsf");
                         } else {
                           Null;
                         }
