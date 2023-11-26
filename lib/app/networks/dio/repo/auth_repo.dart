@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:speedy_feast/app/networks/dio/dio_client.dart';
 import 'package:speedy_feast/app/networks/dio/endpoints.dart';
-import 'package:speedy_feast/app/networks/models/user_signup_res.dart';
+import 'package:speedy_feast/app/networks/models/user_req_res.dart';
 import 'package:speedy_feast/app/networks/models/user_token_error.dart';
 
 class AuthRepo {
   final DioClient dioClient = DioClient(Dio());
 
-  Future<UserTokenError?> AuthReRes(UserSignupRes userSignupRes) async {
+  Future<UserTokenError?> AuthReResSignup(UserReqRes userSignupRes) async {
     try {
       final response = await dioClient.mainReqRes(
         endPoints: EndPoints.signup,
@@ -39,5 +39,39 @@ class AuthRepo {
     final signupResponse =
         UserTokenError(error: "Unexpected Error Not goes to Signup fun");
     return signupResponse;
+  }
+
+  Future<UserTokenError?> AuthReResLogin(UserReqRes userSignupRes) async {
+    try {
+      final response = await dioClient.mainReqRes(
+        endPoints: EndPoints.login,
+        data: userSignupRes.toJson(),
+      );
+      print(response);
+      if (response.statusCode == 200) {
+        final loginResponse = UserTokenError.fromJson(response.data);
+        if (loginResponse.token != null) {
+          return loginResponse;
+        } else {
+          final loginResponse =
+              UserTokenError(error: "User Not Register! Something wrong");
+        }
+      } else {
+        final loginResponse = UserTokenError.fromJson(response.data);
+        if (response.statusCode == 500) {
+          return loginResponse;
+        }
+      }
+    } on DioException catch (e) {
+      if (e.response!.data != null) {
+        final loginResponse = UserTokenError.fromJson(e.response!.data);
+        return loginResponse;
+      }
+      final loginResponse = UserTokenError(error: "Unexpected Error");
+      return loginResponse;
+    }
+    final loginResponse =
+        UserTokenError(error: "Unexpected Error Not goes to Login fun");
+    return loginResponse;
   }
 }

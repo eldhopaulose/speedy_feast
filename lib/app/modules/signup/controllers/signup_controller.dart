@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:speedy_feast/app/networks/dio/repo/auth_repo.dart';
-import 'package:speedy_feast/app/networks/models/user_signup_res.dart';
+import 'package:speedy_feast/app/networks/models/user_req_res.dart';
 import 'package:speedy_feast/app/routes/app_pages.dart';
 
 class SignupController extends GetxController {
@@ -37,8 +37,8 @@ class SignupController extends GetxController {
 
   onSignupCliked() async {
     final AuthRepo repo = AuthRepo();
-    final response = await repo.AuthReRes(
-      UserSignupRes(
+    final response = await repo.AuthReResSignup(
+      UserReqRes(
         name: nameController.text,
         email: emailController.text,
         password: passwordController.text,

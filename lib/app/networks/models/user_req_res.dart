@@ -1,12 +1,12 @@
-class UserSignupRes {
+class UserReqRes {
   String? error;
   String? name;
   String? email;
   String? password;
 
-  UserSignupRes({this.error, this.name, this.email, this.password});
+  UserReqRes({this.error, this.name, this.email, this.password});
 
-  UserSignupRes.fromJson(Map<String, dynamic> json) {
+  UserReqRes.fromJson(Map<String, dynamic> json) {
     error = json['error'];
     name = json['name'];
     email = json['email'];

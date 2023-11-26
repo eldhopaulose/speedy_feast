@@ -28,4 +28,19 @@ extension EndPointData on EndPoints {
     }
     return type;
   }
+
+  bool hasToken() {
+    bool hasToken = false;
+    switch (this) {
+      case EndPoints.login:
+        bool hasToken = false;
+        break;
+      case EndPoints.signup:
+        bool hasToken = false;
+      default:
+        bool hasToken = true;
+        break;
+    }
+    return hasToken;
+  }
 }

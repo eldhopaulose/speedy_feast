@@ -125,6 +125,7 @@ class LoginView extends GetView<LoginController> {
                       ),
                     ),
                     child: TextField(
+                      controller: controller.emailController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Enter your email',
@@ -167,6 +168,7 @@ class LoginView extends GetView<LoginController> {
                       ),
                     ),
                     child: TextField(
+                      controller: controller.passwordController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Enter your password',
@@ -218,7 +220,7 @@ class LoginView extends GetView<LoginController> {
                     height: 42,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.toNamed('/home');
+                        controller.onLoginCliked();
                       },
                       child: Text(
                         'Login',
