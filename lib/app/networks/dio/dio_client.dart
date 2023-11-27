@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:speedy_feast/app/constants/constants.dart';
+import 'package:speedy_feast/app/data/common/token.dart';
+import 'package:speedy_feast/app/data/constants/constants.dart';
 import 'package:speedy_feast/app/networks/dio/endpoints.dart';
 
 class DioClient {
   final Dio _dio;
-  DioClient(this._dio) {
+  final Token _token;
+  DioClient(this._dio, this._token) {
     _dio.interceptors.add(
       PrettyDioLogger(
         requestHeader: true,
@@ -23,7 +25,7 @@ class DioClient {
   }) async {
     Response response;
     if (headers != null) {
-      _dio.options.headers.addAll(headers);
+      _dio.options.headers.addAll({"authorisation": "Bearer   $_token"});
     }
     try {
       switch (endPoints.type()) {

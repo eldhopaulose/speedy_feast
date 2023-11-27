@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:speedy_feast/app/networks/dio/repo/food_repo.dart';
+import 'package:speedy_feast/app/networks/models/get_all_food.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
@@ -20,4 +22,9 @@ class HomeController extends GetxController {
   }
 
   void increment() => count.value++;
+  Future<GetAllFood?> fetchAllData() async {
+    final FoodRepo foodRepo = FoodRepo();
+    final response = await foodRepo.getAllFoodRes();
+    return response;
+  }
 }

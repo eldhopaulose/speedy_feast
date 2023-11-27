@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:speedy_feast/app/data/common/token.dart';
 import 'package:speedy_feast/app/modules/widgets/home_card.dart';
 
 import 'package:speedy_feast/app/modules/widgets/home_categories.dart';
+import 'package:speedy_feast/app/networks/models/get_all_food.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -50,27 +52,6 @@ class HomeView extends GetView<HomeController> {
 
   static String Url =
       'https://images.unsplash.com/photo-1550507992-eb63ffee0847?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNhbmR3aWNofGVufDB8fDB8fHww';
-
-  final List<HCard> hCards = [
-    HCard(
-      200,
-      250,
-      rating: '4.8',
-      image: Url,
-      color: const Color(0xFFFFC107),
-      title: "Sandwich Tantuni",
-      place: "NK Tantuni, Kadıköy",
-    ),
-    HCard(
-      200,
-      250,
-      rating: '4.8',
-      image: Url,
-      color: const Color(0xFFFFC107),
-      title: "Sandwich Tantuni",
-      place: "NK Tantuni, Kadıköy",
-    ),
-  ];
 
   HomeView({Key? key}) : super(key: key);
 
@@ -190,7 +171,7 @@ class HomeView extends GetView<HomeController> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Near You',
                     style: TextStyle(
                       color: Color(0xFF0A1F44),
@@ -200,9 +181,45 @@ class HomeView extends GetView<HomeController> {
                       letterSpacing: -0.08,
                     ),
                   ),
-                  HomeCard(hCards: hCards)
+                  FutureBuilder(
+                    future: controller.fetchAllData(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Error: ${snapshot.error}'),
+                        );
+                      }
+
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: Text("loading"),
+                        );
+                      }
+
+                      if (snapshot.hasData) {
+                        final getAllData = snapshot.data;
+                        if (getAllData != null && getAllData.data != null) {
+                          // Convert List<Data> to List<HCard>
+                          List<HCard> hCards = getAllData.data!
+                              .map((data) => HCard(
+                                    title: data.title ?? "",
+                                    image: data.image ?? "",
+                                    rating: data.star ?? 0.0,
+                                    place: data.location ?? "",
+                                  ))
+                              .toList();
+
+                          return HomeCard(hCards: hCards);
+                        } else {
+                          return Text('${getAllData?.error}');
+                        }
+                      }
+
+                      return const Text("sfs");
+                    },
+                  )
                 ],
-              )
+              ),
             ],
           ),
         ),

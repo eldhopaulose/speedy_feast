@@ -3,17 +3,13 @@ import 'package:flutter_svg/svg.dart';
 
 class HCard {
   final String image;
-  final Color color;
   final String title;
   final String place;
-  final String rating;
-  final double width;
-  final double height;
+  final double rating;
 
-  HCard(this.width, this.height,
+  HCard(
       {required this.image,
       required this.rating,
-      required this.color,
       required this.title,
       required this.place});
 }
@@ -39,10 +35,10 @@ class HomeCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: hCard.width,
-                  height: hCard.height,
+                  width: 500,
+                  height: 500,
                   decoration: BoxDecoration(
-                    color: hCard.color,
+                    color: Colors.amber,
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
                       image: NetworkImage(
@@ -75,7 +71,7 @@ class HomeCard extends StatelessWidget {
                 Row(
                   children: [
                     SvgPicture.asset('images/rating.svg'),
-                    Text(hCard.rating)
+                    Text(hCard.rating.toString())
                   ],
                 )
               ],

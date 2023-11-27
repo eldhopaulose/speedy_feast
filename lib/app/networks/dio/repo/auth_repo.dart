@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
+import 'package:speedy_feast/app/data/common/token.dart';
 import 'package:speedy_feast/app/networks/dio/dio_client.dart';
 import 'package:speedy_feast/app/networks/dio/endpoints.dart';
 import 'package:speedy_feast/app/networks/models/user_req_res.dart';
 import 'package:speedy_feast/app/networks/models/user_token_error.dart';
 
 class AuthRepo {
-  final DioClient dioClient = DioClient(Dio());
+  final DioClient dioClient = DioClient(Dio(), Get.find<Token>());
 
   Future<UserTokenError?> AuthReResSignup(UserReqRes userSignupRes) async {
     try {
@@ -41,11 +43,11 @@ class AuthRepo {
     return signupResponse;
   }
 
-  Future<UserTokenError?> AuthReResLogin(UserReqRes userSignupRes) async {
+  Future<UserTokenError?> AuthReResLogin(UserReqRes userLoginRes) async {
     try {
       final response = await dioClient.mainReqRes(
         endPoints: EndPoints.login,
-        data: userSignupRes.toJson(),
+        data: userLoginRes.toJson(),
       );
       print(response);
       if (response.statusCode == 200) {

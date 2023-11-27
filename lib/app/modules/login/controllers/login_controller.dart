@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:speedy_feast/app/data/common/token.dart';
 import 'package:speedy_feast/app/networks/dio/repo/auth_repo.dart';
 import 'package:speedy_feast/app/networks/models/user_req_res.dart';
 import 'package:speedy_feast/app/routes/app_pages.dart';
@@ -35,7 +36,7 @@ class LoginController extends GetxController {
         password: passwordController.text,
       ),
     );
-    if (response != null && response.error == null) {
+    if (response != null && response.token != null && response.error == null) {
       Get.toNamed(Routes.HOME);
     } else {
       Get.showSnackbar(GetSnackBar(
