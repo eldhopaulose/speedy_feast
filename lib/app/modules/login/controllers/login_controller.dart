@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:speedy_feast/app/data/common/token.dart';
 import 'package:speedy_feast/app/networks/dio/repo/auth_repo.dart';
 import 'package:speedy_feast/app/networks/models/user_req_res.dart';
+import 'package:speedy_feast/app/networks/models/user_token_error.dart';
 import 'package:speedy_feast/app/routes/app_pages.dart';
 
 class LoginController extends GetxController {
@@ -37,6 +38,7 @@ class LoginController extends GetxController {
       ),
     );
     if (response != null && response.token != null && response.error == null) {
+      Get.find<UserTokenError>().token = response.token;
       Get.toNamed(Routes.HOME);
     } else {
       Get.showSnackbar(GetSnackBar(

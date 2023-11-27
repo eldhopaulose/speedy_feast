@@ -7,7 +7,7 @@ import 'package:speedy_feast/app/networks/models/user_req_res.dart';
 import 'package:speedy_feast/app/networks/models/user_token_error.dart';
 
 class AuthRepo {
-  final DioClient dioClient = DioClient(Dio(), Get.find<Token>());
+  final DioClient dioClient = DioClient(Dio());
 
   Future<UserTokenError?> AuthReResSignup(UserReqRes userSignupRes) async {
     try {
@@ -53,6 +53,7 @@ class AuthRepo {
       if (response.statusCode == 200) {
         final loginResponse = UserTokenError.fromJson(response.data);
         if (loginResponse.token != null) {
+          Get.put<Token>(Token(token: loginResponse.token), permanent: true);
           return loginResponse;
         } else {
           final loginResponse =

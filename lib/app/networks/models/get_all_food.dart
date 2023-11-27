@@ -98,7 +98,7 @@ class Data {
     description = json['description'];
     image = json['image'];
     category = json['category'];
-    star = json['star'];
+    star = json['star']?.toDouble();
     location = json['location'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];

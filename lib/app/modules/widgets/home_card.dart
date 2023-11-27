@@ -35,8 +35,8 @@ class HomeCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: 500,
-                  height: 500,
+                  width: 200,
+                  height: 300,
                   decoration: BoxDecoration(
                     color: Colors.amber,
                     borderRadius: BorderRadius.circular(10),

@@ -6,7 +6,7 @@ import 'package:speedy_feast/app/networks/dio/endpoints.dart';
 import 'package:speedy_feast/app/networks/models/get_all_food.dart';
 
 class FoodRepo {
-  final DioClient dioClient = DioClient(Dio(), Get.find<Token>());
+  final DioClient dioClient = DioClient(Dio());
   Future<GetAllFood?> getAllFoodRes() async {
     try {
       final response = await dioClient.mainReqRes(

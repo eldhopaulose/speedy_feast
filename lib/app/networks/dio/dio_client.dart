@@ -1,13 +1,15 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart' as G;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:speedy_feast/app/data/common/token.dart';
 import 'package:speedy_feast/app/data/constants/constants.dart';
 import 'package:speedy_feast/app/networks/dio/endpoints.dart';
+import 'package:speedy_feast/app/networks/models/user_token_error.dart';
 
 class DioClient {
   final Dio _dio;
-  final Token _token;
-  DioClient(this._dio, this._token) {
+
+  DioClient(this._dio) {
     _dio.interceptors.add(
       PrettyDioLogger(
         requestHeader: true,
@@ -18,6 +20,7 @@ class DioClient {
       ),
     );
   }
+
   Future<dynamic> mainReqRes({
     required EndPoints endPoints,
     Map<String, dynamic>? data,
@@ -25,8 +28,12 @@ class DioClient {
   }) async {
     Response response;
     if (headers != null) {
-      _dio.options.headers.addAll({"authorisation": "Bearer   $_token"});
+      _dio.options.headers.addAll(headers);
     }
+    String? _token = G.Get.find<UserTokenError>().token;
+    print("get tokennnnnnnnnn $_token");
+    _dio.options.headers
+        .addAll({"Authorization": "Bearer ${_token ?? "No Token"}"});
     try {
       switch (endPoints.type()) {
         case ReqType.GET:
