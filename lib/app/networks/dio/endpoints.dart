@@ -1,6 +1,10 @@
 import 'package:speedy_feast/app/networks/dio/dio_client.dart';
 
-enum EndPoints { login, signup, home }
+enum EndPoints {
+  login,
+  signup,
+  home,
+}
 
 extension EndPointData on EndPoints {
   String path() {
@@ -33,12 +37,12 @@ extension EndPointData on EndPoints {
     bool hasToken = false;
     switch (this) {
       case EndPoints.login:
-        bool hasToken = false;
+        hasToken = false;
         break;
       case EndPoints.signup:
-        bool hasToken = false;
+        hasToken = false;
       default:
-        bool hasToken = true;
+        hasToken = true;
         break;
     }
     return hasToken;

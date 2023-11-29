@@ -1,16 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:get/get.dart';
-import 'package:speedy_feast/app/data/common/token.dart';
 import 'package:speedy_feast/app/networks/dio/dio_client.dart';
 import 'package:speedy_feast/app/networks/dio/endpoints.dart';
 import 'package:speedy_feast/app/networks/models/get_all_food.dart';
 
 class FoodRepo {
   final DioClient dioClient = DioClient(Dio());
-  Future<GetAllFood?> getAllFoodRes() async {
+  Future<GetAllFood?> getAllFoodRes(int page) async {
     try {
       final response = await dioClient.mainReqRes(
         endPoints: EndPoints.home,
+        data: {'page': page},
       );
       if (response.statusCode == 200) {
         final getAllFoodRes = GetAllFood.fromJson(response.data);

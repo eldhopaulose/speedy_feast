@@ -23,6 +23,7 @@ class AuthRepo {
         } else {
           final signupResponse =
               UserTokenError(error: "User Not Register! Something wrong");
+          return signupResponse;
         }
       } else {
         final signupResponse = UserTokenError.fromJson(response.data);
@@ -58,6 +59,7 @@ class AuthRepo {
         } else {
           final loginResponse =
               UserTokenError(error: "User Not Register! Something wrong");
+          return loginResponse;
         }
       } else {
         final loginResponse = UserTokenError.fromJson(response.data);

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:get/get.dart';
-import 'package:speedy_feast/app/data/common/token.dart';
 import 'package:speedy_feast/app/modules/widgets/home_card.dart';
-
 import 'package:speedy_feast/app/modules/widgets/home_categories.dart';
-import 'package:speedy_feast/app/networks/models/get_all_food.dart';
-
+import 'package:speedy_feast/app/networks/models/user_token_error.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -19,32 +15,20 @@ class HomeView extends GetView<HomeController> {
       place: '1126 places',
     ),
     Categories(
-      icon: 'images/bug.svg',
-      color: const Color(0xFFFFC107),
-      title: 'Burgers',
+      icon: 'images/am.svg',
+      color: const Color(0xFF5AC8FA),
+      title: 'American',
       place: '1126 places',
     ),
     Categories(
-      icon: 'images/bug.svg',
-      color: const Color(0xFFFFC107),
-      title: 'Burgers',
+      icon: 'images/pz.svg',
+      color: const Color(0xFF5856D6),
+      title: 'Pizza',
       place: '1126 places',
     ),
     Categories(
-      icon: 'images/bug.svg',
-      color: const Color(0xFFFFC107),
-      title: 'Burgers',
-      place: '1126 places',
-    ),
-    Categories(
-      icon: 'images/bug.svg',
-      color: const Color(0xFFFFC107),
-      title: 'Burgers',
-      place: '1126 places',
-    ),
-    Categories(
-      icon: 'images/bug.svg',
-      color: const Color(0xFFFFC107),
+      icon: 'images/ba.svg',
+      color: const Color(0xFFFF3B30),
       title: 'Burgers',
       place: '1126 places',
     ),
@@ -52,6 +36,8 @@ class HomeView extends GetView<HomeController> {
 
   static String Url =
       'https://images.unsplash.com/photo-1550507992-eb63ffee0847?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNhbmR3aWNofGVufDB8fDB8fHww';
+
+  String? _name = Get.find<UserTokenError>().name;
 
   HomeView({Key? key}) : super(key: key);
 
@@ -66,13 +52,13 @@ class HomeView extends GetView<HomeController> {
               const SizedBox(
                 height: 50,
               ),
-              const Center(
+              Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Hello Kamilklkn',
-                      style: TextStyle(
+                      'Hello $_name',
+                      style: const TextStyle(
                         color: Color(0xFF0A1F44),
                         fontSize: 24,
                         fontFamily: 'SF Pro Display',
@@ -85,8 +71,8 @@ class HomeView extends GetView<HomeController> {
 
                       radius: 17.5, // Half of the desired width/height
                       child: Text(
-                        'E',
-                        style: TextStyle(
+                        _name![0],
+                        style: const TextStyle(
                           fontSize: 20,
                           color: Colors.white,
                         ),
@@ -190,11 +176,9 @@ class HomeView extends GetView<HomeController> {
                         );
                       }
 
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: Text("loading"),
-                        );
-                      }
+                      // if (snapshot.connectionState == ConnectionState.waiting) {
+                      //   return EasyLoading.show(status: 'loading...');
+                      // }
 
                       if (snapshot.hasData) {
                         final getAllData = snapshot.data;

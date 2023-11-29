@@ -5,8 +5,6 @@ import 'package:speedy_feast/app/networks/models/user_req_res.dart';
 import 'package:speedy_feast/app/routes/app_pages.dart';
 
 class SignupController extends GetxController {
-  //TODO: Implement SignupController
-
   final count = 0.obs;
   final isChecked = false.obs;
 
@@ -50,7 +48,7 @@ class SignupController extends GetxController {
       Get.showSnackbar(GetSnackBar(
         title: "error",
         message: response?.error.toString(),
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
       ));
     }
   }
